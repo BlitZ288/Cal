@@ -19,19 +19,13 @@ namespace Cal.Controllers
         
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<string>> Get()
+        public async Task<ActionResult<Window>> Get()
         {
             using (FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
             {
-                Window desWindow = await JsonSerializer.DeserializeAsync<Window>(file);
-                if (desWindow == null)
-                {
-                    return new string[] { "Файл пуст" };
-                }
-                else
-                {
-                    return new string[] { $"{desWindow.Length}, {desWindow.Width}" };
-                }
+                var desWindow = await JsonSerializer.DeserializeAsync<Window>(file);
+                return desWindow;
+                
                 
             }
           
@@ -47,15 +41,19 @@ namespace Cal.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post(Window value)
+        public void Post([FromBody] Window value)
         {
-            value.Square = value.Length * value.Width;
-            using(FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
+            value.Square = Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght);
+          
+            using (FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
             {
                 JsonSerializer.SerializeAsync<Window>(file,value);
             }
 
-        }
+
+         }
+
+        
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]

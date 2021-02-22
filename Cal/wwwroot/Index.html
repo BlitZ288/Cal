@@ -8,16 +8,18 @@
 
     <form action="javascript:void(0);" method="post" onsubmit="AddWindow()">
         <p> "Введите ширину "</p>
-        <input type="number" , id="add-Width" />
+        <input type="text" , id="add-Width" name="Width" />
         <p> "Введите длинну "</p>
-        <input type="number" , id="add-Length" />
+        <input type="text" , id="add-Lenght" name="Lenght" />
         <p> </p>
         <input type="submit" , value="Отправить форму" />
     </form>
     <p> "Площадь "</p>
 
-    <input type="number" , id="add-Square" />
+    <input type="text" , id="add-Square" />
     <script src="js/site.js" asp-append-version="true" type="text/javascript">
+    </script>
+    <script type="text/javascript">
         GetWindow();
     </script>
 

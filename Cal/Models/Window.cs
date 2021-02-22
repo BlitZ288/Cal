@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace Cal.Models
 {
-    [Serializable]
+   
     public class Window
     {
-        public double Width { get; set; }
-        public double Length { get; set; }
-
+        public string Width { get; set; }
+        public string Lenght { get; set; }
+        
         public double Square { get; set; }
 
+        public Window() { }
     }
 }
