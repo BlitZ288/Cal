@@ -45,16 +45,46 @@ namespace Cal.Controllers
         public async Task PostAsync([FromBody] Window value)
         {
             Price desWindow= new Price();
+            using ( StreamReader reader = new StreamReader("Price.txt"))
+            {
+                string line = reader.ReadLine();
+                char[] str = line.ToCharArray();
+                int temp = 0;
+                char[] str2= new char[4];
+                for ( int i = 0; i <= str.Length; i++)
+                {
+                    if (str[i] == ':')
+                    {
+                        temp = i;
+                        temp++;
+                        break;
+                    }
+
+                }
+                for(int i = 0; i < str2.Length; i++)
+                {
+                    if (str[i]==',')
+                    {
+                        break;
+                    }
+                    else { 
+                        str2[i] = str[temp];
+                        temp++;
+                    }
+                 
+                }
+           
+            }
             using (FileStream file = new FileStream("Price.json", FileMode.OpenOrCreate))
             {
                  desWindow = await JsonSerializer.DeserializeAsync<Price>(file);
                 
 
             }
-            value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
-            value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
-            value.Resalt =((value.Square*desWindow.Tempered_Glass+desWindow.Edge_of_tempered_glass*value.Perimeter+
-            value.Square*desWindow.Print+value.Square*desWindow.Booking));
+            //value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
+            //value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
+            //value.Resalt =((value.Square*desWindow.Tempered_Glass+desWindow.Edge_of_tempered_glass*value.Perimeter+
+            //value.Square*desWindow.Print+value.Square*desWindow.Booking));
                 
             using (FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
             {
