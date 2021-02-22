@@ -13,6 +13,12 @@ namespace Cal.Models
         
         public double Square { get; set; }
 
+        public double Resalt { get; set; }
+        /// <summary>
+        /// Перемитр
+        /// </summary>
+        public double Perimeter { get; set; }
+
         public Window() { }
     }
 }

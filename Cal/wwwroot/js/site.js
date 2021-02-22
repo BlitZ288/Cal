@@ -11,10 +11,7 @@ function GetWindow() {
 }
 function _displayItems(data) {
     var addSquare = document.getElementById('add-Square');
-    addSquare.value = data.square;
-
-  
-      
+    addSquare.value = data.resalt;
 
 
 }

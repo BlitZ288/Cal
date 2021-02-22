@@ -16,6 +16,7 @@ namespace Cal.Controllers
     [Route("api/[controller]")]
     public class WindowsController : Controller
     {
+
         
         // GET: api/<controller>
         [HttpGet]
@@ -41,13 +42,23 @@ namespace Cal.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody] Window value)
+        public async Task PostAsync([FromBody] Window value)
         {
-            value.Square = Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght);
-          
+            Price desWindow= new Price();
+            using (FileStream file = new FileStream("Price.json", FileMode.OpenOrCreate))
+            {
+                 desWindow = await JsonSerializer.DeserializeAsync<Price>(file);
+                
+
+            }
+            value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
+            value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
+            value.Resalt =((value.Square*desWindow.Tempered_Glass+desWindow.Edge_of_tempered_glass*value.Perimeter+
+            value.Square*desWindow.Print+value.Square*desWindow.Booking));
+                
             using (FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
             {
-                JsonSerializer.SerializeAsync<Window>(file,value);
+                await JsonSerializer.SerializeAsync<Window>(file,value);
             }
 
 
