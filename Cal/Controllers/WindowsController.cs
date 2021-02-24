@@ -27,10 +27,8 @@ namespace Cal.Controllers
                 var desWindow = await JsonSerializer.DeserializeAsync<Window>(file);
                 return desWindow;
                 
-                
             }
-          
-           
+
         }
 
         // GET api/<controller>/5
@@ -42,7 +40,7 @@ namespace Cal.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task PostAsync([FromBody] Window value)
+        public async Task<ActionResult<Window>> PostAsync([FromBody] Window value)
         {
             Price desWindow= new Price();
             using (FileStream file = new FileStream("Price.json", FileMode.OpenOrCreate))
@@ -53,15 +51,60 @@ namespace Cal.Controllers
             }
             value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
             value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
-            value.Resalt =((value.Square*desWindow.Tempered_Glass+desWindow.Edge_of_tempered_glass*value.Perimeter+
-            value.Square*desWindow.Print+value.Square*desWindow.Booking));
-                
-            using (FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
+           
+            if (value.Tempered_Glass)
             {
-                await JsonSerializer.SerializeAsync<Window>(file,value);
+                switch (Convert.ToInt32(value.Picture))
+                {
+                    case 1:
+                        desWindow.Picture = 0;
+                        break;
+                    case 2:
+                        desWindow.Picture = desWindow.Picture_ShaterStock;
+                        break;
+                    case 3:
+                        desWindow.Picture = desWindow.Picture_ArtSkinali;
+                        break;
+                }
+                
+                value.Resalt = (value.Square * desWindow.Tempered_Glass + value.Square * desWindow.Print + value.Square * desWindow.Booking+desWindow.Picture);
+                if ((value.Resalt-desWindow.Picture)*desWindow.Installation/100 < 6000)
+                {
+                    value.Resalt_Install = value.Resalt + 6000;
+                }
+                else
+                {
+                    value.Resalt_Install=(value.Resalt - desWindow.Picture)*desWindow.Installation / 100;
+                }
+                return value;
             }
+            else
+            {
+                switch (Convert.ToInt32(value.Picture))
+                {
+                    case 1:
+                        desWindow.Picture = 0;
+                        break;
+                    case 2:
+                        desWindow.Picture = desWindow.Picture_ShaterStock;
+                        break;
+                    case 3:
+                        desWindow.Picture = desWindow.Picture_ArtSkinali;
+                        break;
+                }
 
+                value.Resalt = (value.Square * desWindow.Tempered_Clarified + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture);
+                if ((value.Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
+                {
+                    value.Resalt_Install = value.Resalt + 6000;
+                }
+                else
+                {
+                    value.Resalt_Install = (value.Resalt - desWindow.Picture) * desWindow.Installation / 100;
+                }
+                return value;
 
+            }
          }
 
         

@@ -15,11 +15,11 @@ namespace Cal.Models
         /// <summary>
         /// Закаленного стекла
         /// </summary>
-        public double Tempered_Glass {get; set;}
+        public double Tempered_Glass { get; set; }
         /// <summary>
         /// Незакаленного стекла
         /// </summary>
-        public double Unglazed_glass{ get; set; }
+        public double Unglazed_glass { get; set; }
         /// <summary>
         /// Закаленного осветленного
         /// </summary>
@@ -52,6 +52,18 @@ namespace Cal.Models
         /// Картинка
         /// </summary>
         public double Picture { get; set; }
+
+        public double Picture_ArtSkinali { get; set; }
+
+        public  double Picture_ShaterStock{ get; set; }
+        /// <summary>
+        /// Установка обычного %
+        /// </summary>
+        public double Installation { get; set; }
+        /// <summary>
+        /// Установка прозрачного%
+        /// </summary>
+        public double Installation_Transparent { get; set; }
         /// <summary>
         /// Бронирование
         /// </summary>
