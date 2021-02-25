@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Cal.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using ExcelDataReader.Core.NumberFormat;
 
 
 
@@ -49,9 +50,10 @@ namespace Cal.Controllers
                 
 
             }
+            Price priceExecl = new Price();
             value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
             value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
-           
+
             if (value.Tempered_Glass)
             {
                 switch (Convert.ToInt32(value.Picture))
@@ -66,15 +68,16 @@ namespace Cal.Controllers
                         desWindow.Picture = desWindow.Picture_ArtSkinali;
                         break;
                 }
-                
-                value.Resalt = (value.Square * desWindow.Tempered_Glass + value.Square * desWindow.Print + value.Square * desWindow.Booking+desWindow.Picture);
-                if ((value.Resalt-desWindow.Picture)*desWindow.Installation/100 < 6000)
+
+                value.Resalt = (value.Square * desWindow.Tempered_Glass + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture + Convert.ToDouble(value.Fasteners)
+                * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing);
+                if ((value.Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
                 {
                     value.Resalt_Install = value.Resalt + 6000;
                 }
                 else
                 {
-                    value.Resalt_Install=(value.Resalt - desWindow.Picture)*desWindow.Installation / 100;
+                    value.Resalt_Install = (value.Resalt - desWindow.Picture) * desWindow.Installation / 100;
                 }
                 return value;
             }
@@ -93,7 +96,8 @@ namespace Cal.Controllers
                         break;
                 }
 
-                value.Resalt = (value.Square * desWindow.Tempered_Clarified + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture);
+                value.Resalt = (value.Square * desWindow.Tempered_Clarified + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture
+                 + Convert.ToDouble(value.Fasteners) * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing); 
                 if ((value.Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
                 {
                     value.Resalt_Install = value.Resalt + 6000;

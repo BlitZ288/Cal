@@ -42,15 +42,15 @@ namespace Cal.Models
         /// <summary>
         /// Количество розетоки
         /// </summary>
-        public int Sockets { get; set; }
+        public string Sockets { get; set; }
         /// <summary>
         /// Количество отверстий рейлинг
         /// </summary>
-        public int Railing { get; set; }
+        public string Railing { get; set; }
         /// <summary>
         /// Количество крепежа
         /// </summary>
-        public int Fasteners { get; set; }
+        public string Fasteners { get; set; }
 
 
         public Window() { }

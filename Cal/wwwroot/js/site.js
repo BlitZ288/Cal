@@ -53,8 +53,11 @@ function AddWindow() {
         .then(data => _displayItems(data))
         .then(() => {
            
-            addLength.value = ' ';
-            addWidth.value = ' ';
+            addLength.value = '';
+            addWidth.value = '';
+            addSockets.value = '';
+            addRailing.value = '';
+            addFasteners.value = '';
         })
         
 
