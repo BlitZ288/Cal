@@ -51,6 +51,10 @@ namespace Cal.Models
         /// Количество крепежа
         /// </summary>
         public string Fasteners { get; set; }
+        /// <summary>
+        /// Бронирование 
+        /// </summary>
+        public bool Booking { get; set; }
 
 
         public Window() { }

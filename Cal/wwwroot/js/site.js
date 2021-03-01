@@ -26,7 +26,8 @@ function AddWindow() {
     var addSockets = document.getElementById('add_Sockets');
     var addRailing = document.getElementById('add_Railing');
     var addFasteners = document.getElementById('add_Fasteners');
-
+    var addBooking = document.getElementById('add_Booking');
+    
 
     const window = {
         Width: addWidth.value,
@@ -36,7 +37,8 @@ function AddWindow() {
         Picture: addPicture.value,
         Sockets: addSockets.value,
         Railing: addRailing.value,
-        Fasteners: addFasteners.value
+        Fasteners: addFasteners.value,
+        Booking: addBooking.checked
     };
     
   

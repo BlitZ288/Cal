@@ -74,34 +74,29 @@ namespace Cal.Models
         {
             Application excelApp = new Application();
 
-
             if (excelApp == null)
             {
-                Console.WriteLine("Excel is not installed!!");
-                return;
+                    return;
             }
 
-            Workbook excelBook = excelApp.Workbooks.Open(@"C:\Users\fed0r\source\repos\Excel\Excel\bin\Debug\netcoreapp3.1\Price.xls");
+            Workbook excelBook = excelApp.Workbooks.Open(@"C:\Users\fed0r\source\repos\BlitZ288\Cal\Cal\bin\Debug\netcoreapp3.1\Price.xls");
            _Worksheet excelSheet = excelBook.Sheets[2];
             Microsoft.Office.Interop.Excel.Range excelRange = excelSheet.UsedRange;
 
-            int rows = excelRange.Rows.Count;
-            int cols = excelRange.Columns.Count;
-            for (int i = 3; i <= rows; i++)
-            {
-                object _xVal = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[i, 7]).Value2;
-                if (_xVal != null)
-                {
-                    this.Tempered_Glass = Convert.ToDouble(_xVal);
-                  
-                    Console.Write(_xVal + "\n");
-                }
-
-            }
+                Print= ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[7, 3]).Value2;
+                Fasteners = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[4, 3]).Value2;
+                Sockets = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[5, 3]).Value2;
+                Railing = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[6, 3]).Value2;
+                Tempered_Clarified = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[4, 7]).Value2;
+                Tempered_Glass = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[3, 7]).Value2;
+                Booking = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[19, 7]).Value2;
+                Picture_ArtSkinali = ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[14, 7]).Value2;
+                Picture_ShaterStock= ((Microsoft.Office.Interop.Excel.Range)excelSheet.Cells[15, 7]).Value2;
+             
             //after reading, relaase the excel project
             excelApp.Quit();
             System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
-            Console.ReadLine();
         }
+       
     }
 }

@@ -41,18 +41,15 @@ namespace Cal.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<ActionResult<Window>> PostAsync([FromBody] Window value)
+        public ActionResult<Window> Post([FromBody] Window value)
         {
-            Price desWindow= new Price();
-            using (FileStream file = new FileStream("Price.json", FileMode.OpenOrCreate))
-            {
-                 desWindow = await JsonSerializer.DeserializeAsync<Price>(file);
-                
-
-            }
-            Price priceExecl = new Price();
+            Price desWindow = new Price();
             value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
             value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
+            if (!value.Booking)
+            {
+                desWindow.Booking = 0;
+            }
 
             if (value.Tempered_Glass)
             {
@@ -68,6 +65,7 @@ namespace Cal.Controllers
                         desWindow.Picture = desWindow.Picture_ArtSkinali;
                         break;
                 }
+               
 
                 value.Resalt = (value.Square * desWindow.Tempered_Glass + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture + Convert.ToDouble(value.Fasteners)
                 * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing);
@@ -97,7 +95,7 @@ namespace Cal.Controllers
                 }
 
                 value.Resalt = (value.Square * desWindow.Tempered_Clarified + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture
-                 + Convert.ToDouble(value.Fasteners) * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing); 
+                 + Convert.ToDouble(value.Fasteners) * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing);
                 if ((value.Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
                 {
                     value.Resalt_Install = value.Resalt + 6000;
@@ -109,9 +107,9 @@ namespace Cal.Controllers
                 return value;
 
             }
-         }
+        }
 
-        
+
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
