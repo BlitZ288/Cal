@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Cal.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using ExcelDataReader.Core.NumberFormat;
 
 
 
@@ -21,14 +20,8 @@ namespace Cal.Controllers
         
         // GET: api/<controller>
         [HttpGet]
-        public async Task<ActionResult<Window>> Get()
+        public void  Get()
         {
-            using (FileStream file = new FileStream("Windows.json",FileMode.OpenOrCreate))
-            {
-                var desWindow = await JsonSerializer.DeserializeAsync<Window>(file);
-                return desWindow;
-                
-            }
 
         }
 

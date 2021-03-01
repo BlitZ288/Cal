@@ -6,6 +6,20 @@ function GetWindow() {
         .then(response => response.json())
         .then(data => _displayItems(data))
   
+}
+function disp(divs) {
+    var a = [];
+    for (var i = 0; i < divs.length; i++) {
+        a.push(divs[i].innerHTML);
+    }
+    $("span").text(a.join(" "));
+}
+function Past() {
+    
+    var CloneWindow = document.getElementById('FORMA').cloneNode(true);
+
+    document.querySelector("form").appendChild(CloneWindow);
+    disp($("div").toArray().reverse());
 
    
 }
@@ -18,8 +32,9 @@ function _displayItems(data) {
 }
 
 function AddWindow() {
-    const addWidth = document.getElementById('add-Width');
-    const addLength = document.getElementById('add-Lenght');
+
+    let addWidth = document.getElementById('add-Width');
+    let addLength = document.getElementById('add-Lenght');
     var addTempered_Glass = document.getElementById('add_Tempered_Glass');
     var addTempered_Clarified = document.getElementById('add_Tempered_Clarified');
     var addPicture = document.getElementById('add_Picture');
