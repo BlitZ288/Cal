@@ -7,19 +7,23 @@ function GetWindow() {
         .then(data => _displayItems(data))
   
 }
-function disp(divs) {
-    var a = [];
-    for (var i = 0; i < divs.length; i++) {
-        a.push(divs[i].innerHTML);
-    }
-    $("span").text(a.join(" "));
+function disp() {
+    var fields = [];
+    event.target.parentElement
+        .querySelectorAll('input:not([disabled]):not([type="submit"])').forEach(function (e) {
+            fields.push({ name: e.name, value: e.value });
+        })
 }
 function Past() {
     
     var CloneWindow = document.getElementById('FORMA').cloneNode(true);
 
     document.querySelector("form").appendChild(CloneWindow);
-    disp($("div").toArray().reverse());
+    var input = document.getElementsByTagName(`input`)
+    var test = [];
+
+   
+    disp();
 
    
 }
