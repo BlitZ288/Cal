@@ -1,5 +1,6 @@
 ﻿const uri = 'api/Windows';
-
+var fields = [];
+var cout = 1;
 function GetWindow() {
 
     fetch(uri)
@@ -8,24 +9,17 @@ function GetWindow() {
   
 }
 function disp() {
-    var fields = [];
-    event.target.parentElement
-        .querySelectorAll('input:not([disabled]):not([type="submit"])').forEach(function (e) {
-            fields.push({ name: e.name, value: e.value });
+    
+    event.currentTarget.parentElement
+        .querySelectorAll('input:not([type="submit"]),select').forEach(function (e) {
+            fields.push({ value: e.value, id: e.id, checked: e.checked });
         })
 }
 function Past() {
-    
+    cout++;
     var CloneWindow = document.getElementById('FORMA').cloneNode(true);
-
     document.querySelector("form").appendChild(CloneWindow);
-    var input = document.getElementsByTagName(`input`)
-    var test = [];
-
-   
-    disp();
-
-   
+    
 }
 function _displayItems(data) {
     var addResalt = document.getElementById('add-Resalt');
@@ -36,30 +30,102 @@ function _displayItems(data) {
 }
 
 function AddWindow() {
+    disp();
+    let Windows = [];
+    let j = 0;
+    for (let i = 0; i < cout; i++) {
 
-    let addWidth = document.getElementById('add-Width');
-    let addLength = document.getElementById('add-Lenght');
-    var addTempered_Glass = document.getElementById('add_Tempered_Glass');
-    var addTempered_Clarified = document.getElementById('add_Tempered_Clarified');
-    var addPicture = document.getElementById('add_Picture');
-    var addSockets = document.getElementById('add_Sockets');
-    var addRailing = document.getElementById('add_Railing');
-    var addFasteners = document.getElementById('add_Fasteners');
-    var addBooking = document.getElementById('add_Booking');
-    
+        for (; j < fields.length; ) {
+      
+            switch (fields[j].id) {
 
-    const window = {
-        Width: addWidth.value,
-        Lenght: addLength.value,
-        Tempered_Glass: addTempered_Glass.checked,
-        Tempered_Clarified: addTempered_Clarified.checked,
-        Picture: addPicture.value,
-        Sockets: addSockets.value,
-        Railing: addRailing.value,
-        Fasteners: addFasteners.value,
-        Booking: addBooking.checked
-    };
-    
+                case 'add-Width':
+                    var addWidth = fields[j].value;
+                    break;
+                case 'add-Lenght':
+                    var addLength = fields[j].value;
+                    break;
+                case 'add_Tempered_Glass':
+                    var addTempered_Glass = fields[j].checked;
+                    break;
+                case 'add_Tempered_Clarified':
+                    var addTempered_Clarified = fields[j].checked;
+                    break;
+                case 'add_Picture':
+                    var addPicture = fields[j].value;
+                    break;
+                case 'add_Sockets':
+                    var addSockets = fields[j].value;
+                    break;
+                case 'add_Railing':
+                    var addRailing = fields[j].value;
+                    break;
+                case 'add_Fasteners':
+                    var addFasteners = fields[j].value;
+                    break;
+                case 'add_Booking':
+                    var addBooking = fields[j].value;
+                    break;
+            }
+          
+            if (j == 8) {
+                var window = {
+                    Width: addWidth,
+                    Lenght: addLength,
+                    Tempered_Glass: addTempered_Glass,
+                    Tempered_Clarified: addTempered_Clarified,
+                    Picture: addPicture,
+                    Sockets: addSockets,
+                    Railing: addRailing,
+                    Fasteners: addFasteners,
+                    Booking: addBooking
+                };
+       
+                Windows.push(window)
+
+            }
+            j++;
+
+        }
+     
+       
+       
+        //var addWidth = document.getElementById('add-Width');
+        //var addLength = document.getElementById('add-Lenght');
+        //var addTempered_Glass = document.getElementById('add_Tempered_Glass');
+        //var addTempered_Clarified = document.getElementById('add_Tempered_Clarified');
+        //var addPicture = document.getElementById('add_Picture');
+        //var addSockets = document.getElementById('add_Sockets');
+        //var addRailing = document.getElementById('add_Railing');
+        //var addFasteners = document.getElementById('add_Fasteners');
+        //var addBooking = document.getElementById('add_Booking');
+
+        //const window = {
+        //    Width: addWidth.value,
+        //    Lenght: addLength.value,
+        //    Tempered_Glass: addTempered_Glass.checked,
+        //    Tempered_Clarified: addTempered_Clarified.checked,
+        //    Picture: addPicture.value,
+        //    Sockets: addSockets.value,
+        //    Railing: addRailing.value,
+        //    Fasteners: addFasteners.value,
+        //    Booking: addBooking.checked
+        //};
+        //Windows.push(window);
+    }
+
+    //const window = {
+    //    Width: addWidth.value,
+    //    Lenght: addLength.value,
+    //    Tempered_Glass: addTempered_Glass.checked,
+    //    Tempered_Clarified: addTempered_Clarified.checked,
+    //    Picture: addPicture.value,
+    //    Sockets: addSockets.value,
+    //    Railing: addRailing.value,
+    //    Fasteners: addFasteners.value,
+    //    Booking: addBooking.checked
+    //};
+    //Windows.push(window);
   
 
     fetch(uri, {
