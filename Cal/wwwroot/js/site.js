@@ -9,15 +9,19 @@ function GetWindow() {
   
 }
 function disp() {
-    
-    event.currentTarget.parentElement
-        .querySelectorAll('input:not([type="submit"]),select').forEach(function (e) {
+    var forms = document.getElementsByName('Width_Lenght');
+    for (let i = 0; i < 3; i++) {
+        var inputs = forms[i].getElementsByTagName('input');
+    }
+    event.target.parentElement
+        .querySelectorAll('input').forEach(function (e) {
             fields.push({ value: e.value, id: e.id, checked: e.checked });
         })
 }
 function Past() {
     cout++;
-    var CloneWindow = document.getElementById('FORMA').cloneNode(true);
+
+    var CloneWindow = document.getElementsByName('Width_Lenght')[0].cloneNode(true);
     document.querySelector("form").appendChild(CloneWindow);
     
 }
