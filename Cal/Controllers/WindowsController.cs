@@ -17,10 +17,10 @@ namespace Cal.Controllers
     public class WindowsController : Controller
     {
 
-        
+
         // GET: api/<controller>
         [HttpGet]
-        public void  Get()
+        public void Get()
         {
 
         }
@@ -34,73 +34,81 @@ namespace Cal.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public ActionResult<Window> Post([FromBody] Window value)
+        public ActionResult<Window> Post(List<Window> value)
         {
             Price desWindow = new Price();
-            value.Square = (Convert.ToDouble(value.Width) * Convert.ToDouble(value.Lenght)) / 1000000;
-            value.Perimeter = (Convert.ToDouble(value.Width) + Convert.ToDouble(value.Lenght)) * 2 / 1000;
-            if (!value.Booking)
+            for (int i = 0; i <= value.Count; i++)
             {
-                desWindow.Booking = 0;
-            }
 
-            if (value.Tempered_Glass)
-            {
-                switch (Convert.ToInt32(value.Picture))
+                value[i].Square = (Convert.ToDouble(value[i].Width) * Convert.ToDouble(value[i].Lenght)) / 1000000;
+                value[i].Perimeter = (Convert.ToDouble(value[i].Width) + Convert.ToDouble(value[i].Lenght)) * 2 / 1000;
+                if (!value[i].Booking)
                 {
-                    case 1:
-                        desWindow.Picture = 0;
-                        break;
-                    case 2:
-                        desWindow.Picture = desWindow.Picture_ShaterStock;
-                        break;
-                    case 3:
-                        desWindow.Picture = desWindow.Picture_ArtSkinali;
-                        break;
+                    desWindow.Booking = 0;
                 }
-               
 
-                value.Resalt = (value.Square * desWindow.Tempered_Glass + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture + Convert.ToDouble(value.Fasteners)
-                * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing);
-                if ((value.Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
+                if (value[i].Tempered_Glass)
                 {
-                    value.Resalt_Install = value.Resalt + 6000;
+                    switch (Convert.ToInt32(value[i].Picture))
+                    {
+                        case 1:
+                            desWindow.Picture = 0;
+                            break;
+                        case 2:
+                            desWindow.Picture = desWindow.Picture_ShaterStock;
+                            break;
+                        case 3:
+                            desWindow.Picture = desWindow.Picture_ArtSkinali;
+                            break;
+                    }
+
+
+                    value[i].Resalt = (value[i].Square * desWindow.Tempered_Glass + value[i].Square * desWindow.Print + value[i].Square * desWindow.Booking
+                      + desWindow.Picture + Convert.ToDouble(value[i].Fasteners) * desWindow.Fasteners + Convert.ToDouble(value[i].Sockets) * desWindow.Sockets
+                       + Convert.ToDouble(value[i].Railing) * desWindow.Railing);
+                    if ((value[i].Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
+                    {
+                        value[i].Resalt_Install = value[i].Resalt + 6000;
+                    }
+                    else
+                    {
+                        value[i].Resalt_Install = (value[i].Resalt - desWindow.Picture) * desWindow.Installation / 100;
+                    }
+                    return value[i];
                 }
                 else
                 {
-                    value.Resalt_Install = (value.Resalt - desWindow.Picture) * desWindow.Installation / 100;
-                }
-                return value;
-            }
-            else
-            {
-                switch (Convert.ToInt32(value.Picture))
-                {
-                    case 1:
-                        desWindow.Picture = 0;
-                        break;
-                    case 2:
-                        desWindow.Picture = desWindow.Picture_ShaterStock;
-                        break;
-                    case 3:
-                        desWindow.Picture = desWindow.Picture_ArtSkinali;
-                        break;
-                }
+                    switch (Convert.ToInt32(value[i].Picture))
+                    {
+                        case 1:
+                            desWindow.Picture = 0;
+                            break;
+                        case 2:
+                            desWindow.Picture = desWindow.Picture_ShaterStock;
+                            break;
+                        case 3:
+                            desWindow.Picture = desWindow.Picture_ArtSkinali;
+                            break;
+                    }
+                    value[i].Resalt = (value[i].Square * desWindow.Tempered_Clarified + value[i].Square * desWindow.Print + value[i].Square * desWindow.Booking
+                     + desWindow.Picture + Convert.ToDouble(value[i].Fasteners) * desWindow.Fasteners + Convert.ToDouble(value[i].Sockets) * desWindow.Sockets
+                      + Convert.ToDouble(value[i].Railing) * desWindow.Railing);
+                    if ((value[i].Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
+                    {
+                        value[i].Resalt_Install = value[i].Resalt + 6000;
+                    }
+                    else
+                    {
+                        value[i].Resalt_Install = (value[i].Resalt - desWindow.Picture) * desWindow.Installation / 100;
+                    }
 
-                value.Resalt = (value.Square * desWindow.Tempered_Clarified + value.Square * desWindow.Print + value.Square * desWindow.Booking + desWindow.Picture
-                 + Convert.ToDouble(value.Fasteners) * desWindow.Fasteners + Convert.ToDouble(value.Sockets) * desWindow.Sockets + Convert.ToDouble(value.Railing) * desWindow.Railing);
-                if ((value.Resalt - desWindow.Picture) * desWindow.Installation / 100 < 6000)
-                {
-                    value.Resalt_Install = value.Resalt + 6000;
+                    return value[i];
                 }
-                else
-                {
-                    value.Resalt_Install = (value.Resalt - desWindow.Picture) * desWindow.Installation / 100;
-                }
-                return value;
-
+             
             }
+            return null;
         }
+
 
 
 

@@ -1,6 +1,9 @@
 ﻿const uri = 'api/Windows';
 var fields = [];
+var inputs;
+var mass_inputs_value = [];
 var cout = 1;
+var Windows = [];
 function GetWindow() {
 
     fetch(uri)
@@ -9,22 +12,65 @@ function GetWindow() {
   
 }
 function disp() {
-    var forms = document.getElementsByName('Width_Lenght');
-    for (let i = 0; i < 3; i++) {
-        var inputs = forms[i].getElementsByTagName('input');
+    var divs = document.getElementsByName('Width_Lenght');
+    for (let i = 0; i < cout; i++) {
+        var inputs = divs[i].getElementsByTagName('input');
+        for (var j = 0; j < inputs.length; j++) {
+            mass_inputs_value.push(inputs[j].value);
+            switch (inputs[j].id) {
+                case 'add-Width':
+                    var addWidth = inputs[j].value;
+                    break;
+                case 'add-Lenght':
+                    var addLength = inputs[j].value;
+                    break;
+                case 'add_Tempered_Glass':
+                    var addTempered_Glass = inputs[j].checked;
+                    break;
+                case 'add_Tempered_Clarified':
+                    var addTempered_Clarified = inputs[j].checked;
+                    break;
+                case 'add_Picture':
+                    var addPicture = inputs[j].value;
+                    break;
+                case 'add_Sockets':
+                    var addSockets = inputs[j].value;
+                    break;
+                case 'add_Railing':
+                    var addRailing = inputs[j].value;
+                    break;
+                case 'add_Fasteners':
+                    var addFasteners = inputs[j].value;
+                    break;
+                case 'add_Booking':
+                    var addBooking = inputs[j].value;
+                    break;
+            }
+            var window = {
+                Width: addWidth,
+                Lenght: addLength,
+                Tempered_Glass: addTempered_Glass,
+                Tempered_Clarified: addTempered_Clarified,
+                Picture: addPicture,
+                Sockets: addSockets,
+                Railing: addRailing,
+                Fasteners: addFasteners,
+                Booking: addBooking
+            };
+         
+        }
+        Windows.push(window)
     }
-    event.target.parentElement
-        .querySelectorAll('input').forEach(function (e) {
-            fields.push({ value: e.value, id: e.id, checked: e.checked });
-        })
+
 }
+
 function Past() {
     cout++;
-
     var CloneWindow = document.getElementsByName('Width_Lenght')[0].cloneNode(true);
     document.querySelector("form").appendChild(CloneWindow);
     
 }
+
 function _displayItems(data) {
     var addResalt = document.getElementById('add-Resalt');
     var addResalt_Install = document.getElementById('add-Resalt_Install');
@@ -35,64 +81,7 @@ function _displayItems(data) {
 
 function AddWindow() {
     disp();
-    let Windows = [];
-    let j = 0;
-    for (let i = 0; i < cout; i++) {
-
-        for (; j < fields.length; ) {
-      
-            switch (fields[j].id) {
-
-                case 'add-Width':
-                    var addWidth = fields[j].value;
-                    break;
-                case 'add-Lenght':
-                    var addLength = fields[j].value;
-                    break;
-                case 'add_Tempered_Glass':
-                    var addTempered_Glass = fields[j].checked;
-                    break;
-                case 'add_Tempered_Clarified':
-                    var addTempered_Clarified = fields[j].checked;
-                    break;
-                case 'add_Picture':
-                    var addPicture = fields[j].value;
-                    break;
-                case 'add_Sockets':
-                    var addSockets = fields[j].value;
-                    break;
-                case 'add_Railing':
-                    var addRailing = fields[j].value;
-                    break;
-                case 'add_Fasteners':
-                    var addFasteners = fields[j].value;
-                    break;
-                case 'add_Booking':
-                    var addBooking = fields[j].value;
-                    break;
-            }
-          
-            if (j == 8) {
-                var window = {
-                    Width: addWidth,
-                    Lenght: addLength,
-                    Tempered_Glass: addTempered_Glass,
-                    Tempered_Clarified: addTempered_Clarified,
-                    Picture: addPicture,
-                    Sockets: addSockets,
-                    Railing: addRailing,
-                    Fasteners: addFasteners,
-                    Booking: addBooking
-                };
-       
-                Windows.push(window)
-
-            }
-            j++;
-
-        }
-     
-       
+   
        
         //var addWidth = document.getElementById('add-Width');
         //var addLength = document.getElementById('add-Lenght');
@@ -116,7 +105,7 @@ function AddWindow() {
         //    Booking: addBooking.checked
         //};
         //Windows.push(window);
-    }
+    
 
     //const window = {
     //    Width: addWidth.value,
@@ -138,7 +127,7 @@ function AddWindow() {
             'Accept': 'application/json',
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(window),
+        body: JSON.stringify(Windows),
     })
         .then(response => response.json())
         .then(data => _displayItems(data))
