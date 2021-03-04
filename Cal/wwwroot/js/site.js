@@ -74,10 +74,16 @@ function Past() {
 }
 
 function _displayItems(data) {
-    var addResalt = document.getElementById('add-Resalt');
-    var addResalt_Install = document.getElementById('add-Resalt_Install');
-    addResalt.value = data.resalt;
-    addResalt_Install.value = data.resalt_Install;
+    var addResalt = 0;
+    var addResalt_Install = 0;
+    for (let i = 0; i < data.length; i++) {
+        addResalt += data[i].resalt;
+        addResalt_Install += data[i].resalt_Install;
+    }
+    document.getElementById('add-Resalt').value = addResalt
+    document.getElementById('add-Resalt_Install').value = addResalt_Install
+    //addResalt.value = data.resalt;
+    //addResalt_Install.value = data.resalt_Install;
 
 }
 

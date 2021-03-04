@@ -7,7 +7,7 @@
 <body>
 
     <form name="FORMA" action="javascript:void(0);" method="post" onsubmit="AddWindow()">
-        <div id="Width_Lenght" name ="Width_Lenght" class="Width_Lenght">
+        <div id="Width_Lenght" name="Width_Lenght" class="Width_Lenght">
             <p> "Введите ширину "</p>
             <input type="text" , id="add-Width" name="Width" maxlength="4" />
             <p> "Введите длинну "</p>
@@ -16,21 +16,21 @@
             <input type="checkbox" , id="add_Tempered_Glass" onchange="document.getElementById('add_Tempered_Clarified').disabled = this.checked;" />Закаленное <br />
             <input type="checkbox" , id="add_Tempered_Clarified" onchange="document.getElementById('add_Tempered_Glass').disabled = this.checked;" />Осветленное стекло <br />
             <input type="checkbox" , id="add_Booking" />Бронировать <br />
-     
-        <p>Количество разеток</p>
-        <input type="text" , id="add_Sockets" />
-        <p>Количество Рейлинга</p>
-        <input type="text" , id="add_Railing" />
-        <p>Количество крепежа</p>
-        <input type="text" , id="add_Fasteners" />
-        <p>"Хотите выбрать картинку"</p>
 
-        <select id="add_Picture">
-            <option value="1">Нет</option>
-            <option value="2">ShaterStock</option>
-            <option value="3">ArtSkinali</option>
+            <p>Количество разеток</p>
+            <input type="text" , id="add_Sockets" />
+            <p>Количество Рейлинга</p>
+            <input type="text" , id="add_Railing" />
+            <p>Количество крепежа</p>
+            <input type="text" , id="add_Fasteners" />
+            <p>"Хотите выбрать картинку"</p>
 
-        </select>
+            <select id="add_Picture">
+                <option value="1">Нет</option>
+                <option value="2">ShaterStock</option>
+                <option value="3">ArtSkinali</option>
+
+            </select>
         </div>
         <p> </p>
 
@@ -38,10 +38,15 @@
 
     </form>
     <button onclick="Past()" class="addWidth_Lenght">Добавить еще стекло</button>
+    <form naem="Result_Form" style="margin-left: 500px;">
+        <div >"Ваш заказ"</div>
+        <p>"Стекла"</p>
+        <label id="Result_Width_Lenght"></label>
     <p> "Результат"</p>
     <input type="text" , id="add-Resalt" />
     <p> "Результат с установкой "</p>
     <input type="text" , id="add-Resalt_Install" />
+    </form>
 
     <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
     <script src="js/site.js" asp-append-version="true" type="text/javascript">
