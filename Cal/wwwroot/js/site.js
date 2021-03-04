@@ -43,7 +43,7 @@ function disp() {
                     var addFasteners = inputs[j].value;
                     break;
                 case 'add_Booking':
-                    var addBooking = inputs[j].value;
+                    var addBooking = inputs[j].checked;
                     break;
             }
             var window = {
@@ -60,6 +60,8 @@ function disp() {
          
         }
         Windows.push(window)
+        
+
     }
 
 }
@@ -127,7 +129,7 @@ function AddWindow() {
             'Accept': 'application/json',
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(Windows),
+        body: JSON.stringify(Windows)
     })
         .then(response => response.json())
         .then(data => _displayItems(data))

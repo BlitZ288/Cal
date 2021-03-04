@@ -34,10 +34,11 @@ namespace Cal.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public ActionResult<Window> Post(List<Window> value)
+        public List<Window> Post([FromBody] Window[] value)
         {
             Price desWindow = new Price();
-            for (int i = 0; i <= value.Count; i++)
+            List<Window> Result_Window = new List<Window>(); 
+            for (int i = 0; i < value.Length; i++)
             {
 
                 value[i].Square = (Convert.ToDouble(value[i].Width) * Convert.ToDouble(value[i].Lenght)) / 1000000;
@@ -74,7 +75,8 @@ namespace Cal.Controllers
                     {
                         value[i].Resalt_Install = (value[i].Resalt - desWindow.Picture) * desWindow.Installation / 100;
                     }
-                    return value[i];
+                    Result_Window.Add(value[i]);
+                   // return value[i];
                 }
                 else
                 {
@@ -101,12 +103,12 @@ namespace Cal.Controllers
                     {
                         value[i].Resalt_Install = (value[i].Resalt - desWindow.Picture) * desWindow.Installation / 100;
                     }
-
-                    return value[i];
+                    Result_Window.Add(value[i]);
+                    //return value[i];
                 }
              
             }
-            return null;
+            return Result_Window;
         }
 
 
